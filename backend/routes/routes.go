@@ -29,7 +29,6 @@ func SetupRouter() *gin.Engine {
 	{
 		api.POST("/signup", controllers.Signup)
 		api.POST("/login", controllers.Login)
-		api.POST("/setClaims", middleware.SetClaims)
 
 		api.GET("/menu", controllers.ViewAllMenus)
 		api.POST("/menu", middleware.AuthMiddleware("staff"), controllers.CreateMenu)
