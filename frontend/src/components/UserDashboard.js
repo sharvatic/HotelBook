@@ -64,15 +64,28 @@ const UserDashboard = () => {
     };
 
     const createOrder = (menuID, name) => {
-        const newOrder = {
-            menu_item_id: menuID,
-            item_name: name,
-            quantity: 1
-        };
-
-        // Add the new order to the existing order array
-        setOrderArray((prevOrderArray) => [...prevOrderArray, newOrder]);
-        console.log('Order created:', newOrder);
+        setOrderArray((prevOrderArray) => {
+            // Find the item in the existing array
+            const existingOrder = prevOrderArray.find(order => order.menu_item_id === menuID);
+    
+            if (existingOrder) {
+                // If the item already exists, increase its quantity
+                return prevOrderArray.map(order => 
+                    order.menu_item_id === menuID 
+                        ? { ...order, quantity: order.quantity + 1 } 
+                        : order
+                );
+            } else {
+                // If the item does not exist, add a new item to the array
+                const newOrder = {
+                    menu_item_id: menuID,
+                    item_name: name,
+                    quantity: 1
+                };
+                console.log('New order added:', newOrder);
+                return [...prevOrderArray, newOrder];
+            }
+        });
     };
 
 
@@ -255,7 +268,8 @@ const UserDashboard = () => {
                                         <ul className="order-items">
                                             {orderArray.map((order, index) => (
                                                 <li key={index}>
-                                                    <span className="order-item-name">Item Name: {order.item_name}</span>
+                                                    <span className="order-item-name">Item Name: {order.item_name} </span>
+                                                    <span className="order-item-name">Quantity: {order.quantity} </span>
                                                 </li>
                                             ))}
                                         </ul>
