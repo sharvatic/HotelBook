@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+    "github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/gin-gonic/gin"
 )
 
 var jwtSecretKey = []byte("daddi")
@@ -36,7 +36,12 @@ func AuthMiddleware(requiredRole string) gin.HandlerFunc {
 
         // Parse and validate the token
         token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-            // Validate the token signing method
+            
+            // Validate the token signing method (Type assertion)
+            // token.Method gives the method in which the token is created and 
+            // we will be comparing it with the type `*jwt.SigningMethodHMAC`
+            // if it matches then it returns the token.Method and a boolean value true
+            // but we don't want to use the token.Method value thus _ is used to show that we don't care about the variable
             if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
                 return nil, http.ErrNotSupported
             }
