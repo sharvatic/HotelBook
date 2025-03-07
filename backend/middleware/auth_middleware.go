@@ -58,16 +58,17 @@ func AuthMiddleware(requiredRole string) gin.HandlerFunc {
         if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
             // Extract role and userID from token claims
             role, roleOk := claims["role"].(string)
+            userIDFloat, userIDOk := claims["userID"].(float64)
 
             // Check if the role is present and matches the required role
-            if !roleOk || role != requiredRole {
+            if !roleOk || !userIDOk || role != requiredRole {
                 c.JSON(http.StatusForbidden, gin.H{"error": "Insufficient permissions"})
                 c.Abort()
                 return
             }
 
             // If valid, set user ID for access in handlers
-            c.Set("userID", claims["userID"])
+            c.Set("userID", userIDFloat)
             c.Set("role", role)
         } else {
             c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
