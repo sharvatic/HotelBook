@@ -10,7 +10,7 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	dsn := fmt.Sprintf("sharv:password@tcp(localhost:3306)/restaurant_management?charset=utf8mb4&parseTime=True&loc=Local")
+	dsn := fmt.Sprintf("root:password@tcp(database:3306)/restaurant_management?charset=utf8mb4&parseTime=True&loc=Local")
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)

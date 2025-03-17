@@ -25,7 +25,7 @@ const Signup = () => {
 
             if (response.status === 201) {
                 alert('Signup successful!');
-                navigate('/dashboard');
+                navigate('/login');
 
             } else {
                 setError('Signup failed');
