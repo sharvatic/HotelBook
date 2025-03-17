@@ -35,9 +35,6 @@ const Home = () => {
                 <a href="/login" className="home-link">Login</a>
                 <a href="/signup" className="home-link">Signup</a>
             </div>
-            <div className="home-actions">
-                <a href="/signin" className="home-link">Sign In with Google</a>
-            </div>
         </div>
     );
 };

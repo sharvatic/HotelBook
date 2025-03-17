@@ -49,8 +49,3 @@ CREATE TABLE tables (
     booked_by INT DEFAULT 0,
     booking_time TIMESTAMP NULL
 );
-
-
-insert into menus (name, active) values ('starters', 1) ;
-insert into menu_items (menu_id, name, description, price, available) values (3, 'Chicken tikka', 'mildly spicy', 150.00, 1) ;
-insert into tables (table_number , seats) values (8, 8) ;
